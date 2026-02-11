@@ -1,5 +1,32 @@
 # Messages spécifiques à Carcassonne
 
+## Tableau récapitulatif
+
+### Pour les joueurs
+
+| Message   | Format                                               | Fonction                           |
+|-----------|------------------------------------------------------|------------------------------------|
+| `AGREES`  | `id AGREES exp_or_var+`                              | Indiquer les extensions supportées |
+| `PLACES`  | `id PLACES id' tile x:y`                             | Placer une tuile                   |
+| `PLACES`  | `id PLACES id' tile x:y meeple_type meeple_position` | Placer une tuile avec un meeple    |
+
+### Pour les arbitres
+
+| Message    | Format                                               | Fonction                                          |
+|------------|------------------------------------------------------|---------------------------------------------------|
+| `ELECTS`   | `id ELECTS role id+`                                 | Donner un rôle à un identifiant                   |
+| `AGREES`   | `id AGREES exp_or_var+`                              | Définir les extensions et les variantes utilisées |
+| `PLACES`   | `id PLACES id' tile x:y`                             | Confirmer le placement d'une tuile                |
+| `PLACES`   | `id PLACES id' tile x:y meeple_type meeple_position` | Confirmer le placement d'une tuile avec un meeple |
+| `BLAMES`   | `id BLAMES id' reason`                               | Donner un blâme à un joueur                       |
+| `BLAMES`   | `id BLAMES amount`                                   | Définir le nombre de blâme autorisés              |
+| `OFFERS`   | `id OFFERS id' tile`                                 | Faire piocher un joueur au début de son tour      |
+| `SCORES`   | `id SCORES id' points`                               | Attribuer des points à un joueur                  |
+| `COLLECTS` | `id COLLECTS id' meeple_type (amount)`               | Donner un meeple à un joueur                      |
+| `STARTS`   | `id STARTS`                                          | Démarrer la partie                                |
+| `ENDS`     | `id ENDS id+`                                        | Mettre fin à la partie                            |
+
+
 ## Messages
 
 ### ELECTS
