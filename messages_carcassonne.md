@@ -4,15 +4,15 @@
 
 ### ELECTS
 
-Format : `id ELECS role id+`
+Format : `id ELECTS role id+`
 
-Le message `ELECS` permet de donner un rôle à des identifiants. On défini une liste de rôles possibles:  
-- `player` : l'indentifiant correspond à un joueur (qu'il soit humain ou robot)
-- `referee` : l'indentifiant correspond à un arbitre
-- `spectator` : l'indentifiant correspond à un spectateur (affichage pour un public, enregistrement de la partie)
+Le message `ELECTS` permet de donner un rôle à des identifiants. On défini une liste de rôles possibles:  
+- `player` : l'identifiant correspond à un joueur (qu'il soit humain ou robot)
+- `referee` : l'identifiant correspond à un arbitre
+- `spectator` : l'identifiant correspond à un spectateur (affichage pour un public, enregistrement de la partie)
 - `utility` : l'identifiant correspond à un programme utilitaire
 
-Un message `AGREES` envoyé par un identifiant de role `spectator` ou `player` n'a aucun effet.
+Un message `ELECTS` envoyé par un identifiant de role `spectator` ou `player` n'a aucun effet.
 
 ### AGREES
 
@@ -51,7 +51,8 @@ Un message `PLACES` envoyé par un identifiant de role `spectator` ou `utility` 
 
 ### BLAMES
 
-Format : `id BLAMES id' reason`
+Format : `id BLAMES id' reason` (donner un blâme à un joueur)  
+`id BLAMES amount` (indiquer le nombre de blâme autorisés pour la partie)
 
 Le message `BLAMES` permet de donner un blâme à un identifiant. La raison du blâme est indiquée dans le champ `reason`.
 Un arbitre peut mettre un blâme à un joueur qui aurait soit envoyé un message non autorisé (`illegal-message`) soit aurait fait un mauvais placement avec la commande `PLACES`.
@@ -66,9 +67,11 @@ Un placement est mauvais si :
 
 Dans le cas d'un mauvais placement, l'arbitre ne confirme pas le placement par le message `PLACES` mais donne un blâme au joueur par le message `BLAMES`.
 
-Un message `BLAMES` envoyé par un identifiant de role `spectator` ou `player` n'a aucun effet.
+Le message `BLAMES` permet également d'indiquer le nombre de blâme autorisés pour la partie. Par exemple, une partie entre joueurs confirmés pourrait n'autoriser qu'un seul blâme alors qu'une partie entre joueurs novice pourrait autoriser 5 blâmes.
 
-**TODO: Un joueur est-il expulsé de la partie au bout du premier blâme ? Un message indiquant le nombre de blâme autorisé pour une partie ?**
+Si un joueur dépasse le nombre de blâmes autorisés, il est alors expulsé de la partie par l'arbitre (message `EXPELS`).
+
+Un message `BLAMES` envoyé par un identifiant de role `spectator` ou `player` n'a aucun effet.
 
 ### OFFERS
 
@@ -77,8 +80,6 @@ Format : `id OFFERS id' tile`
 Afin d'enlever aux joueurs la charge de se souvenir de son tour et de piocher une tuile, l'arbitre s'occupe de cela par le message `OFFERS`. Par exemple, quand c'est au tour du joueur Sam de jouer, l'arbitre ARB envoie `ARB OFFERS Sam f1-c2-f3-c2`.
 
 Un message `OFFERS` envoyé par un identifiant de role `spectator` ou `player` n'a aucun effet.
-
-**TODO: Le premier message OFFERS indique-t-il le début de la partie ? Un message STARTS qui indique le début de la partie ? Un message ENDS qui indique la fin de la partie ?**
 
 ### SCORES
 
@@ -97,3 +98,23 @@ Le placement d'une tuile peut avoir comme effet de redonner à un joueur un ou p
 L'arbitre s'occupe de déterminer quels joueurs récupèrent des meeples et envoie un ou plusieurs messages `COLLECTS` en indiquant le joueur concerné et le type de meeple récupéré. Un champ facultatif permet d'indiquer un nombre de meeples récupérés. Si le champ n'est pas renseigné, le nombre de meeple récupérés par le joueur est de 1.
 
 Un message `COLLECTS` envoyé par un identifiant de role `spectator` ou `player` n'a aucun effet.
+
+### STARTS
+
+Format : `id STARTS`
+
+L'arbitre indique le début de la partie par le message `STARTS`.
+
+Les joueurs commencent tous avec 0 meeple. L'arbitre donne ensuite à chaque joueur des meeples par le message `COLLECTS` (dans le jeu de base chaque joueur reçoit 8 meeples de type `regular`, on pourra penser à une variante de jeu où les joueurs commencent la partie avec moins de meeples).
+
+Enfin l'arbitre lance le premier tour par le message `OFFERS`.
+
+Un message `STARTS` envoyé par un identifiant de role `spectator` ou `player` n'a aucun effet.
+
+### ENDS
+
+Format : `id ENDS id+`
+
+L'arbitre met fin à la partie par le message `ENDS` et indique l'identifiant du joueur qui a gagné la partie. Dans le cas d'une égalité, l'arbitre indique les identifiants des joueurs qui ont gagné.
+
+Un message `ENDS` envoyé par un identifiant de role `spectator` ou `player` n'a aucun effet.
