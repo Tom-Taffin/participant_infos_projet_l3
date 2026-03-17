@@ -95,11 +95,11 @@ Un arbitre peut mettre un blâme à un joueur qui aurait soit envoyé un message
 
 Un placement est mauvais si :
 - le champ `id'` n'est pas le même que le champ `id` (`illegal-id`),
-- Le nom de la tuile ne respecte pas la nomenclature (`illegal-tile`),
-- Les coordonées indiquées sont déjà prises par une autre tuile ou ne sont pas collées à une tuile du plateau (`illegal-position`),
-- les coordonées sont correctes mais engendre des collisions entre zones de différents types (`illegal-adjacency`),
-- le nom du meeple ne correspond pas avec les noms possibles de la partie (jeu de base (`regular`) et éventuelles extensions) (`illegal-meeple-type`),
-- la position du meeple ne correspond pas avec une zone, une voie ou une abbaye présente dans le nom de la tuile (`illegal-meeple-position`). 
+- le coup de la tuile n'est pas valide (`illegal-tile-move`),
+- le coup du meeple n'est pas valide (`illegal-meeple-move`),
+- la syntax de l'orientation n'est pas valide (`illegal-orientation-syntax`),
+- la syntax de la position du meeple n'est pas valide (`illegal-meeple-position-syntax`)
+
 
 Dans le cas d'un mauvais placement, l'arbitre ne confirme pas le placement par le message `PLACES` mais donne un blâme au joueur par le message `BLAMES`.
 
