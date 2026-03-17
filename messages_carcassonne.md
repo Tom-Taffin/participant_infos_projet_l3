@@ -94,11 +94,13 @@ Le message `BLAMES` permet de donner un blâme à un identifiant. La raison du b
 Un arbitre peut mettre un blâme à un joueur qui aurait soit envoyé un message non autorisé (`illegal-message`) soit aurait fait un mauvais placement avec la commande `PLACES`.
 
 Un placement est mauvais si :
+- ce n'est pas à ton tour de jouer (`illegal-turn`),
 - le champ `id'` n'est pas le même que le champ `id` (`illegal-id`),
 - le coup de la tuile n'est pas valide (`illegal-tile-move`),
 - le coup du meeple n'est pas valide (`illegal-meeple-move`),
 - la syntax de l'orientation n'est pas valide (`illegal-orientation-syntax`),
-- la syntax de la position du meeple n'est pas valide (`illegal-meeple-position-syntax`)
+- la syntax de la position du meeple n'est pas valide (`illegal-meeple-position-syntax`),
+- si le joueur mets trop de temps pour répondre (`timeout`).
 
 
 Dans le cas d'un mauvais placement, l'arbitre ne confirme pas le placement par le message `PLACES` mais donne un blâme au joueur par le message `BLAMES`.
