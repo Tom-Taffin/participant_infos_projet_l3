@@ -2,7 +2,7 @@ $projects = @(
     @{ Name = "carcassonne_connection_library"; URL = "git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/carcassonne_connection_library.git"; JarName = "none" },
     @{ Name = "game-elements";   URL = "git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/game-elements.git"; JarName = "none" },
     @{ Name = "swingplayergui";   URL = "git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/swingplayergui.git"; JarName = "PlayerController.jar" },
-    @{ Name = "programme_arbitre";   URL = "git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/programme_arbitre.git"; JarName = "RefereeView.jar" },
+    @{ Name = "programme_arbitre";   URL = "git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/programme_arbitre.git"; JarName = "RefereeView.jar" }
 )
 
 $ressources = ".\ressources\"
