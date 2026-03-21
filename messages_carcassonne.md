@@ -1,5 +1,7 @@
 # Messages spécifiques à Carcassonne
 
+TODO: mettre à jour
+
 ## Tableau récapitulatif
 
 ### Pour les joueurs
