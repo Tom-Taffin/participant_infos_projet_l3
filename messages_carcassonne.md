@@ -9,8 +9,9 @@ TODO: mettre à jour
 | Message   | Format                                               | Fonction                           |
 |-----------|------------------------------------------------------|------------------------------------|
 | `AGREES`  | `id AGREES exp_or_var+`                              | Indiquer les extensions supportées |
-| `PLACES`  | `id PLACES id' orientation x:y`                             | Placer une tuile                   |
-| `PLACES`  | `id PLACES id' orientation x:y meeple_type meeple_position` | Placer une tuile avec un meeple    |
+| `PLACES`  | `id PLACES id' orientation x y`                             | Placer une tuile                   |
+| `PLACES`  | `id PLACES id' orientation x y meeple_type meeple_position` | Placer une tuile avec un meeple    |
+| `PLAYS`    | `id PLAYS`                                          | Indiquer qu'un joueur veut jouer
 
 ### Pour les arbitres
 
@@ -18,13 +19,14 @@ TODO: mettre à jour
 |------------|------------------------------------------------------|---------------------------------------------------|
 | `ELECTS`   | `id ELECTS role id+`                                 | Donner un rôle à un identifiant                   |
 | `AGREES`   | `id AGREES exp_or_var+`                              | Définir les extensions et les variantes utilisées |
-| `PLACES`   | `id PLACES id' orientation x:y`                             | Confirmer le placement d'une tuile                |
-| `PLACES`   | `id PLACES id' orientation x:y meeple_type meeple_position` | Confirmer le placement d'une tuile avec un meeple |
+| `PLACES`   | `id PLACES id' orientation x y`                             | Confirmer le placement d'une tuile                |
+| `PLACES`   | `id PLACES id' orientation x y meeple_type meeple_position` | Confirmer le placement d'une tuile avec un meeple |
 | `BLAMES`   | `id BLAMES id' reason`                               | Donner un blâme à un joueur                       |
-| `BLAMES`   | `id BLAMES amount`                                   | Définir le nombre de blâme autorisés              |
-| `OFFERS`   | `id OFFERS id' tile`                                 | Faire piocher un joueur au début de son tour      |
+| `BLAMES`   | `id BLAMES amount`                                   | Définir le nombre de blâme maximum              |
+| `OFFERS`   | `id OFFERS id' tile`                                 | Proposer une tuile piochée à un joueur au début de son tour      |
 | `SCORES`   | `id SCORES id' points`                               | Attribuer des points à un joueur                  |
-| `COLLECTS` | `id COLLECTS id' meeple_type x:y`               | Donner un meeple à un joueur                      |
+| `COLLECTS` | `id COLLECTS id' meeple_type x y`        | Donner un meeple à un joueur                      |
+| `COLLECTS` | `id COLLECTS id' meeple_type amount`        | Donner un certain nombre de meeples à un joueur                      |
 | `STARTS`   | `id STARTS`                                          | Démarrer la partie                                |
 | `ENDS`     | `id ENDS id+`                                        | Mettre fin à la partie                            |
 
@@ -61,27 +63,35 @@ Format : `id OFFERS id' tile`
 
 Afin d'enlever aux joueurs la charge de se souvenir de son tour et de piocher une tuile, l'arbitre s'occupe de cela par le message `OFFERS`. Par exemple, quand c'est au tour du joueur Sam de jouer, l'arbitre ARB envoie `ARB OFFERS Sam f1-c2-f3-c2`.
 
-Le champ `tile` doit respecter cette nomenclature : `B-B-B-B(:A)`.  
+Le champ `tile` doit respecter cette nomenclature : `(A)B-B-B-B`.  
 `B-B-B-B` correspond au nom par défaut (sans orientation) de la tuile.   
-`B` correspond à la description d'un bord de la tuile et possède deux formes : `Zi` ou `ZiViZi`.  
-`Z` correspond à une zone (`c` pour une ville, `C` pour une ville avec blason, `f` pour un champ) et `V` correspond à une voie (`r` pour une route).  
-`i` correspond à l'identifiant **unique** de la zone ou de la voie. Par exemple `c1` et `c2` sont deux châteaux distincs, c'est-à-dire qu'ils ne sont pas reliés sur la tuile. Toutes les zones et les voies, même de type différent, ne doivent pas partager le même identifiant. Par exemple, la tuile `c1-f2r3f4-f4r3f2-f2` est correcte mais la tuile `c1-f2r1f3-f3r1f2-f2` n'est pas correcte (`c1` et `r1` ne peuvent pas partager le même identifiant car ils sont de types différents).
-Enfin `:A` est facultatif et sert à indiquer si une abbaye se trouve sur la tuile.
+`B` correspond à la description d'un bord de la tuile et possède cette forme : `Zi(Zi(Zi...))`.  
+`Z` correspond à une zone (`c` pour une ville, `C` pour une ville avec blason, `f` pour un champ, `r` pour une route).
+`i` correspond à l'identifiant **unique** de la zone ou de la voie. Par exemple `c1` et `c2` sont deux châteaux distincs, c'est-à-dire qu'ils ne sont pas reliés sur la tuile. Deux zones de topologie différente ne peuvent pas être relié donc si elles ont le même identifiant, elle ne seront pas connectées.
+Enfin `A` est facultatif et sert à indiquer si une abbaye se trouve sur la tuile.
+
+Exemple:  
+![tile1 exemple](images/tile_exemple1.png)  
+c0-f0r0f1-f1-f1r0f0  
+![tile2 exemple](images/tile_exemple2.png)  
+c1-c1-f2r0f3-c1
 
 Un message `OFFERS` envoyé par un identifiant de role `spectator` ou `player` n'a aucun effet.
 
 ### PLACES
 
-Format : `id PLACES id' orientation x:y` (placement sans meeple)  
-`id PLACES id' tile x:y meeple_type meeple_position` (placement avec meeple)
+Format : `id PLACES id' orientation x y` (placement sans meeple)  
+`id PLACES id' tile x y meeple_type meeple_position` (placement avec meeple)
 
-Pour placer une tuile, un joueur doit remettre son identifiant dans le champ `id'` (exemple:  `Sam PLACES Sam EAST 2:3 regular f1`)  
+Pour placer une tuile, un joueur doit remettre son identifiant dans le champ `id'` (exemple:  `Sam PLACES Sam EAST 2 3 regular f1`)  
 Les autres joueurs ne prennent pas en compte un messages PLACES envoyé par un identifiant de type `player`. Ils doivent attendre qu'un arbitre confirme le placement.
 
-Un arbitre confirme le placement d'une tuile d'un joueur en indiquant l'id du joueur dans le champ `id'` (exemple:  `ARB PLACES Sam EAST 2:3 regular f1`).  
+Un arbitre confirme le placement d'une tuile d'un joueur en indiquant l'id du joueur dans le champ `id'` (exemple:  `ARB PLACES Sam EAST 2 3 regular f1`).  
 Quand ils recoivent un message `PLACES` provenant d'un arbitre, les joueurs prennent en compte le placement et modifient leur interface si besoin.
 
-Le champ `orientation` est l'orientation de la tuile qui à été pioché, soit `NORTH`, soit `EAST`, soit `SOUTH`, soit `WEST`.
+Les arguments `x` et `y` sont les coordonnées où le joueur veut placer sa tuile.
+
+Le champ `orientation` est l'orientation de la tuile qui à été pioché, soit `N`, soit `E`, soit `S`, soit `W`.
 
 Les champs `meeple_type` et `meeple_position` correspondent respectivement au type de meeple placé (`regular` pour les meeples du jeu de base) et à la position du meeple sur la tuile qui est la direction du bord où se situe la zone ainsi que son indice de gauche à droite. La direction est `T` pour Top, `R` pour Right, `B` pour Bottom et `L` pour Left. Par exemple `B0` pour la zone en bas la plus à droite. `B1` pour celle à gauche de `B0`. `L0` pour celle à gauche la plus en bas. `R0` pour celle à droite la plus en haut. `T0` pour celle en haut la plus à gauche. Donc pour mettre un meeple sur la route à droite de la tuile `c1-f2r1f3-f3r1f2-f2` c'est `R1`. Et pour mettre un meeple sur le champ en bas à gauche de `c1-f2r1f3-f3r1f2-f2` c'est `B2`.
 
@@ -90,13 +100,11 @@ Un message `PLACES` envoyé par un identifiant de role `spectator` ou `utility` 
 ### BLAMES
 
 Format : `id BLAMES id' reason` (donner un blâme à un joueur)  
-`id BLAMES amount` (indiquer le nombre de blâme autorisés pour la partie)
+`id BLAMES amount` (indiquer le nombre de blâme maximum pour la partie)
 
 Le message `BLAMES` permet de donner un blâme à un identifiant. La raison du blâme est indiquée dans le champ `reason`.
-Un arbitre peut mettre un blâme à un joueur qui aurait soit envoyé un message non autorisé (`illegal-message`) soit aurait fait un mauvais placement avec la commande `PLACES`.
-
-Un placement est mauvais si :
-- ce n'est pas à ton tour de jouer (`illegal-turn`),
+Un arbitre peut mettre un blâme à un joueur selon ces différents cas :
+- ce n'est pas à son tour de jouer (`illegal-turn`),
 - le champ `id'` n'est pas le même que le champ `id` (`illegal-id`),
 - le coup de la tuile n'est pas valide (`illegal-tile-move`),
 - le coup du meeple n'est pas valide (`illegal-meeple-move`),
@@ -105,11 +113,11 @@ Un placement est mauvais si :
 - si le joueur mets trop de temps pour répondre (`timeout`).
 
 
-Dans le cas d'un mauvais placement, l'arbitre ne confirme pas le placement par le message `PLACES` mais donne un blâme au joueur par le message `BLAMES`.
+Dans le cas d'un mauvais placement, l'arbitre ne confirme pas le placement par le message `PLACES` mais donne un blâme au joueur par le message `BLAMES`. Si le joueur n'est pas expulsé alors il attend à nouveau un message `PLACES` sinon il propose une tuile au prochain joueur.
 
-Le message `BLAMES` permet également d'indiquer le nombre de blâme autorisés pour la partie. Par exemple, une partie entre joueurs confirmés pourrait n'autoriser qu'un seul blâme alors qu'une partie entre joueurs novice pourrait autoriser 5 blâmes.
+Le message `BLAMES` permet également d'indiquer le nombre de blâme maximum pour la partie. Par exemple, une partie entre joueurs confirmés pourrait n'avoir qu'un seul blâme maximum alors qu'une partie entre joueurs novice pourrait avoir 5 blâmes maximum.
 
-Si un joueur dépasse le nombre de blâmes autorisés, il est alors expulsé de la partie par l'arbitre (message `EXPELS`).
+Si un joueur atteint le nombre de blâmes maximum, il est alors expulsé de la partie par l'arbitre (message `EXPELS`).
 
 Un message `BLAMES` envoyé par un identifiant de role `spectator` ou `player` n'a aucun effet.
 
@@ -124,12 +132,21 @@ Un message `SCORES` envoyé par un identifiant de role `spectator` ou `player` n
 
 ### COLLECTS
 
-Format : `id COLLECTS id' meeple_type x:y`
+Format : `id COLLECTS id' meeple_type x y`  
+`id COLLECTS id' meeple_type amount`
 
 Le placement d'une tuile peut avoir comme effet de redonner à un joueur un ou plusieurs meeple qu'il avait placé.  
 L'arbitre s'occupe de déterminer quels joueurs récupèrent des meeples et envoie un ou plusieurs messages `COLLECTS` en indiquant le joueur concerné, le type de meeple récupéré et les coordonnées de la tuile où se trouve le meeple.
 
+Le message `COLLECTS` permet également de donner un certain nombre de meeples à un joueur.
+
 Un message `COLLECTS` envoyé par un identifiant de role `spectator` ou `player` n'a aucun effet.
+
+### PLAYS
+
+Format : `id PLAYS`
+
+Un joueur indique à l'arbitre qu'il veut jouer, ainsi l'arbitre récupère les joueurs avant de démarer la partie.
 
 ### STARTS
 
