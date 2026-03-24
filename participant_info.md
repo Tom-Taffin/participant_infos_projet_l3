@@ -173,6 +173,27 @@ Sur Linux : `./build.sh` (il faut d'abord donner les droits d'exécution au scri
 
 Pour lancer l'exécutable que vous souhaitez, placez vous dans le dossier `build` et lancez la commande `java -jar` correspondante (référez vous aux Readme du dépot concerné pour obtenir la commande exacte)
 
+### Lancer une partie
+
+Tout d'abord vous devez télécharger un réflecteur : [Linux-x64](https://gitlab.univ-lille.fr/fil-l3-projet/portail/-/raw/public/reflector-linux-x64.tgz), [Linux-arm64](https://gitlab.univ-lille.fr/fil-l3-projet/portail/-/raw/public/reflector-linux-arm64.tgz), [Mac-arm64](https://gitlab.univ-lille.fr/fil-l3-projet/portail/-/raw/public/reflector-macos-arm64.tgz), [Mac-x64](https://gitlab.univ-lille.fr/fil-l3-projet/portail/-/raw/public/reflector-macos-x64.tgz), [Windows-x64](https://gitlab.univ-lille.fr/fil-l3-projet/portail/-/raw/public/reflector-windows-x64.tgz).
+
+1) Lancer le réflecteur :  
+sur Windows `.\reflector.exe --host 127.0.0.1 --port 3000`  
+sur Linux `./reflector --help`  
+
+2) Connecter un programme arbitre au réflecteur :  
+- Se placer dans `participant_info/build`  
+- `java -jar .\RefereeView.jar 127.0.0.1 3000 <arbitreID> <nbPlayers>`
+
+3) Connecter les joueurs :    
+- Soit une interface graphique :  
+    - Se placer dans `participant_info/build`  
+    - `java -jar .\PlayerController.jar 127.0.0.1 3000 <playerId>`  
+- Soit un programme robot :  
+    - voir [programme_robot](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/programme_robot)
+
+Une fois le bon nombre de joueurs connectés la partie se lancera.
+
 ---
 
 ## Utilisation des librairies
