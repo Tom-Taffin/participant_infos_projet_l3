@@ -163,6 +163,19 @@ Vous développez votre propre interface visuelle en héritant de `PlayerView` et
 
 ## Lancement
 
+### Réflecteur
+
+Voici les liens pour télécharger le réflecteur selon l'architecture de votre machine :
+
+- [Windows-x64](https://gitlab.univ-lille.fr/fil-l3-projet/portail/-/raw/public/reflector-windows-x64.tgz)
+- [Linux-x64](https://gitlab.univ-lille.fr/fil-l3-projet/portail/-/raw/public/reflector-linux-x64.tgz)
+- [Linux-arm64](https://gitlab.univ-lille.fr/fil-l3-projet/portail/-/raw/public/reflector-linux-arm64.tgz)
+- [Mac-x64](https://gitlab.univ-lille.fr/fil-l3-projet/portail/-/raw/public/reflector-macos-x64.tgz)
+- [Mac-arm64](https://gitlab.univ-lille.fr/fil-l3-projet/portail/-/raw/public/reflector-macos-arm64.tgz)
+
+Pour utiliser le réflecteur, décompresser l’exécutable et appelez le ainsi : `./reflector --host <ip> --port <port>`  
+L'argument `--help` permet d'obtenir des informations sur les différents argument que peut prendre l'exécutable.
+
 ### Script de build
 
 Un script est mis à votre disposition pour faciliter l'installation des différents dépots du projet.
@@ -173,22 +186,21 @@ Sur Linux : `./build.sh` (il faut d'abord donner les droits d'exécution au scri
 
 Pour lancer l'exécutable que vous souhaitez, placez vous dans le dossier `build` et lancez la commande `java -jar` correspondante (référez vous aux Readme du dépot concerné pour obtenir la commande exacte)
 
+Le programme robot n'est pas inclus dans le script. Référez vous à [programme_robot](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/programme_robot) pour installer et utiliser le programme robot.
+
 ### Lancer une partie
 
-Tout d'abord vous devez télécharger un réflecteur : [Linux-x64](https://gitlab.univ-lille.fr/fil-l3-projet/portail/-/raw/public/reflector-linux-x64.tgz), [Linux-arm64](https://gitlab.univ-lille.fr/fil-l3-projet/portail/-/raw/public/reflector-linux-arm64.tgz), [Mac-arm64](https://gitlab.univ-lille.fr/fil-l3-projet/portail/-/raw/public/reflector-macos-arm64.tgz), [Mac-x64](https://gitlab.univ-lille.fr/fil-l3-projet/portail/-/raw/public/reflector-macos-x64.tgz), [Windows-x64](https://gitlab.univ-lille.fr/fil-l3-projet/portail/-/raw/public/reflector-windows-x64.tgz).
-
 1) Lancer le réflecteur :  
-sur Windows `.\reflector.exe --host 127.0.0.1 --port 3000`  
-sur Linux `./reflector --help`  
+Voir la section [réflecteur](#réflecteur)
 
 2) Connecter un programme arbitre au réflecteur :  
 - Se placer dans `participant_info/build`  
-- `java -jar .\RefereeView.jar 127.0.0.1 3000 <arbitreID> <nbPlayers>`
+- `java -jar .\RefereeView.jar <ip> <port> <arbitreID> <nbPlayers>`
 
 3) Connecter les joueurs :    
 - Soit une interface graphique :  
     - Se placer dans `participant_info/build`  
-    - `java -jar .\PlayerController.jar 127.0.0.1 3000 <playerId>`  
+    - `java -jar .\PlayerController.jar <ip> <port> <playerId>`  
 - Soit un programme robot :  
     - voir [programme_robot](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/programme_robot)
 
