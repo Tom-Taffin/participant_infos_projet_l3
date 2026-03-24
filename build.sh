@@ -4,24 +4,31 @@ YELLOW='\033[1;33m'
 NC='\033[0m'
 
 projects=(
-    "carcassonne_connection_library|git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/carcassonne_connection_library.git|none"
+    "carcassonne_connection_library|git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/carcassonne_connection_library.git|SpectatorMain.jar PlayerMain.jar AdminMain.jar"
     "game-elements|git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/game-elements.git|none"
     "swingplayergui|git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/swingplayergui.git|PlayerController.jar"
     "programme_arbitre|git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/programme_arbitre.git|RefereeView.jar"
 )
 
+build="./build"
+buildressources="./build/ressources"
 ressources="./ressources/"
 
 echo -e "${YELLOW}starting${NC}"
 
-if [ ! -d "$ressources" ]; then 
-    echo -e "${YELLOW}creating $ressources${NC}"
-    mkdir -p "$ressources" 
+if [ ! -d "$build" ]; then 
+    echo -e "${YELLOW}creating $build${NC}"
+    mkdir -p "$build" 
+fi
+
+if [ ! -d "$buildressources" ]; then 
+    echo -e "${YELLOW}creating $buildressources${NC}"
+    mkdir -p "$buildressources" 
 fi
 
 for p in "${projects[@]}"; do
    
-    IFS="|" read -r dir url jar <<< "$p"
+    IFS="|" read -r dir url jars <<< "$p"
 
     echo -e "${YELLOW}$dir${NC}"
 
@@ -46,19 +53,21 @@ for p in "${projects[@]}"; do
     fi
     popd > /dev/null
 
-    # On déplace les jars à la racine
+    # On déplace les jars à dans le dossier build
     echo -e "${YELLOW}moving jars...${NC}"
-    jarPath="./$dir/target/$jar"
-    if [ -f "$jarPath" ]; then
-        mv "$jarPath" ./
-        echo -e "${YELLOW}$jar moved${NC}"
-    fi
+    for jar in $jars; do
+        jarPath="./$dir/target/$jar"
+        if [ -f "$jarPath" ]; then
+            mv "$jarPath" "$build"
+            echo -e "${YELLOW}$jar moved${NC}"
+        fi
+    done
 
-    # On copie les ressources (comportement Copy-Item -Recurse)
+    # On copie les ressources
     echo -e "${YELLOW}moving ressources...${NC}"
     sourceRessources="./$dir/ressources"
     if [ -d "$sourceRessources" ]; then
-        cp -r "$sourceRessources/." "$ressources"
+        cp -r "$sourceRessources/." "$buildressources"
     fi
 
 done

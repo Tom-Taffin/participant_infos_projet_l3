@@ -1,17 +1,42 @@
 $projects = @(
-    @{ Name = "carcassonne_connection_library"; URL = "git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/carcassonne_connection_library.git"; JarName = "none" },
-    @{ Name = "game-elements";   URL = "git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/game-elements.git"; JarName = "none" },
-    @{ Name = "swingplayergui";   URL = "git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/swingplayergui.git"; JarName = "PlayerController.jar" },
-    @{ Name = "programme_arbitre";   URL = "git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/programme_arbitre.git"; JarName = "RefereeView.jar" }
+    @{ 
+        Name = "carcassonne_connection_library"
+        URL = "git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/carcassonne_connection_library.git"
+        JarNames = @("SpectatorMain.jar", "PlayerMain.jar", "AdminMain.jar") 
+    },
+    @{ 
+        Name = "game-elements"
+        URL = "git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/game-elements.git"
+        JarNames = @() 
+    },
+    @{ 
+        Name = "swingplayergui"
+        URL = "git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/swingplayergui.git"
+        JarNames = @("PlayerController.jar") 
+    },
+    @{ 
+        Name = "programme_arbitre"
+        URL = "git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/programme_arbitre.git"
+        JarNames = @("RefereeView.jar") 
+    }
 )
 
+
+
+$build = ".\build\"
+$buildressources = ".\$build\ressources\"
 $ressources = ".\ressources\"
 
 Write-Host "starting" -ForegroundColor Yellow
 
-if (-not (Test-Path $ressources)) { 
-    Write-Host "creating $ressources" -ForegroundColor Yellow
-    New-Item -ItemType Directory -Path $ressources 
+if (-not (Test-Path $build)) { 
+    Write-Host "creating $build" -ForegroundColor Yellow
+    New-Item -ItemType Directory -Path $build 
+}
+
+if (-not (Test-Path $buildressources)) { 
+    Write-Host "creating $buildressources" -ForegroundColor Yellow
+    New-Item -ItemType Directory -Path $buildressources 
 }
 
 foreach ($p in $projects) {
@@ -45,12 +70,14 @@ foreach ($p in $projects) {
 
     Set-Location ..
 
-    # on déplace les jars à la racine
+    # on déplace les jars dans le dossier build
     Write-Host "moving jars..." -ForegroundColor Yellow
-    $jarPath = ".\$dir\target\$jar"
-    if (Test-Path $jarPath) {
-        Move-Item -Path $jarPath -Destination ".\" -Force
-        Write-Host "$jar moved" -ForegroundColor Yellow
+    foreach ($jar in $p.JarNames) {
+        $jarPath = ".\$dir\target\$jar"
+        if (Test-Path $jarPath) {
+            Copy-Item -Path $jarPath -Destination "$build" -Force
+            Write-Host "$jar moved" -ForegroundColor Yellow
+        }
     }
 
     # on déplace les ressources
@@ -58,7 +85,7 @@ foreach ($p in $projects) {
     $ressourcesPath = ".\$dir\$ressources\*"
     if (Test-Path $ressourcesPath) {
         Get-ChildItem -Path $ressourcesPath | ForEach-Object {
-            Copy-Item -Path $_.FullName -Destination $ressources -Recurse -Force
+            Copy-Item -Path $_.FullName -Destination $buildressources -Recurse -Force
         }
     }
 
