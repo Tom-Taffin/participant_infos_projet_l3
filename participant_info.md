@@ -163,7 +163,15 @@ Vous développez votre propre interface visuelle en héritant de `PlayerView` et
 
 ## Lancement
 
-TODO
+### Script de build
+
+Un script est mis à votre disposition pour faciliter l'installation des différents dépots du projet.
+
+Pour lancer le script :
+Sur Windows : `./build.ps1`
+Sur Linux : `./build.sh` (il faut d'abord donner les droits d'exécution au script par la commande `chmod -x ./build.sh`)
+
+Pour lancer l'exécutable que vous souhaitez, placez vous dans le dossier `build` et lancez la commande `java -jar` correspondante (référez vous aux Readme du dépot concerné pour obtenir la commande exacte)
 
 ---
 
