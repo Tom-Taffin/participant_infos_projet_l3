@@ -229,7 +229,15 @@ mvn clean install
 ```xml
 <dependency>
     <groupId>l3s6.projet.star</groupId>
-    <artifactId>carcassonne_connection_library</artifactId>
+    <artifactId>reflector-interaction</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</dependency>
+```
+
+```xml
+<dependency>
+    <groupId>l3s6.projet.star</groupId>
+    <artifactId>game-elements</artifactId>
     <version>1.0-SNAPSHOT</version>
 </dependency>
 ```
