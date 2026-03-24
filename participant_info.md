@@ -8,10 +8,11 @@ Bienvenue dans le tournoi Carcassonne ! Ce document explique tout ce que vous de
 
 - [Vue d'ensemble du projet](#vue-densemble-du-projet)
 - [Les programmes disponibles](#les-programmes-disponibles)
+- [Protocole de communication](#protocole-de-communication)
 - [Déroulement d'une partie](#déroulement-dune-partie)
 - [Modes de participation](#modes-de-participation)
-- [Lancement et utilisation](#lancement-et-utilisation)
-- [Protocole de communication](#protocole-de-communication)
+- [Lancement](#lancement)
+- [Utilisation des librairie](#utilisation-des-librairies)
 - [Règles du jeu](#règles-du-jeu)
 - [Créer son propre robot](#créer-son-propre-robot)
 - [Créer sa propre interface](#créer-sa-propre-interface)
@@ -80,6 +81,14 @@ Outils Node.js et Python permettant d'enregistrer tous les messages d'une partie
 
 ---
 
+## Protocole de communication
+
+> Voir le document : [messages_carcassonne.md](./messages_carcassonne.md)
+
+Tous les messages transitent par le réflecteur sous forme de chaînes de texte. La librairie `carcassonne_connection_library` gère automatiquement leur construction et leur validation, mais il est utile de comprendre le protocole.
+
+---
+
 ## Déroulement d'une partie
 
 ### Séquence de lancement
@@ -104,15 +113,15 @@ Voici l'ordre dans lequel les programmes doivent être lancés :
 ### Séquence d'un tour
 
 ```
-Arbitre → OFFERS id' tile         (propose une tuile au joueur dont c'est le tour)
-Joueur  → PLACES id id' orientation x y   (le joueur place la tuile)
+Arbitre → arbitreId OFFERS joueurId tile         (propose une tuile au joueur dont c'est le tour)
+Joueur  → joueurId PLACES joueurId orientation x y   (le joueur place la tuile)
 
-Arbitre → PLACES id id' orientation x y   (l'arbitre confirme le placement)
+Arbitre → arbitreId PLACES joueurId orientation x y   (l'arbitre confirme le placement)
          ou
-Arbitre → BLAMES id' reason        (coup invalide)
+Arbitre → arbitreId BLAMES joueurId reason        (coup invalide)
 
-Arbitre → SCORES id' points        (si des points sont marqués)
-Arbitre → COLLECTS id' type x y   (si des meeples sont récupérés)
+Arbitre → arbitreId SCORES joueurId points        (si des points sont marqués)
+Arbitre → arbitreId COLLECTS joueurId type x y   (si des meeples sont récupérés)
 ```
 
 ---
@@ -152,18 +161,24 @@ Vous développez votre propre interface visuelle en héritant de `PlayerView` et
 
 ---
 
-## Lancement et utilisation
+## Lancement
+
+TODO
+
+---
+
+## Utilisation des librairies
 
 ### Étape 1 — Installer les librairies
 
 ```bash
 # Installer la librairie de connexion
-git clone <url_carcassonne_connection_library>
+git clone git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/carcassonne_connection_library.git
 cd carcassonne_connection_library
 mvn clean install
 
 # Installer la librairie de jeu
-git clone <url_game_elements>
+git clone git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/game-elements.git
 cd game_elements
 mvn clean install
 ```
@@ -178,56 +193,10 @@ mvn clean install
 </dependency>
 ```
 
-### Étape 3 — Lancer le réflecteur
-
-Lancez le réflecteur WebSocket fourni en précisant le port d'écoute (exemple : port 3000).
-
-```bash
-# Exemple (commande dépendante du réflecteur fourni)
-java -jar reflector.jar 3000
-```
-
-### Étape 4 — Connecter l'arbitre
-
-```bash
-java -jar AdminMain.jar <IP_réflecteur> <port> <ID_arbitre>
-```
-
-### Étape 5 — Connecter les joueurs
-
-**Interface humaine :**
-```bash
-java -jar SwingPlayerGUI.jar <IP_réflecteur> <port> <votre_ID>
-```
-
-**Programme robot (Python) :**
-```bash
-pip install jpype1
-python robot_view.py <IP_réflecteur> <port> <votre_ID>
-```
-
-**JAR de test (ligne de commande) :**
-```bash
-# Joueur en ligne de commande
-java -jar PlayerMain.jar <IP_réflecteur> <port> <votre_ID>
-
-# Spectateur
-java -jar SpectatorMain.jar <IP_réflecteur> <port>
-```
-
-### Étape 6 — Indiquer sa présence et démarrer
-
-Chaque joueur envoie `PLAYS` pour indiquer à l'arbitre qu'il est prêt. L'arbitre démarre ensuite la partie avec `STARTS`.
+Pour plus d'informations : voir les README de [carcassonne_connection_library](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/carcassonne_connection_library) et [game-elements](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/game-elements).
 
 ---
 
-## Protocole de communication
-
-> Voir le document : [messages_carcassonne.md](./messages_carcassonne.md)
-
-Tous les messages transitent par le réflecteur sous forme de chaînes de texte. La librairie `carcassonne_connection_library` gère automatiquement leur construction et leur validation, mais il est utile de comprendre le protocole.
-
----
 
 ## Règles du jeu
 
@@ -262,7 +231,7 @@ Carcassonne est un jeu de placement de tuiles dans lequel les joueurs construise
 
 Un joueur accumulant trop de blâmes (nombre défini par l'arbitre via `BLAMES amount`) est expulsé de la partie.
 
-Pour en savoir plus: voir 
+Pour en savoir plus: voir README [programme_arbitre](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/programme_arbitre)
 
 ### Fin de partie
 
@@ -272,7 +241,7 @@ L'arbitre envoie `ENDS` en indiquant l'identifiant du (ou des) joueur(s) gagnant
 
 ## Créer son propre robot
 
-> Voir [README — robot](./robot/README.md)
+> Voir README [programme_robot](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/programme_robot)
 
 ### Option A — Nouvelle stratégie Python (recommandée)
 
@@ -304,7 +273,7 @@ self.move_strategy = MaStrategie()
 
 ### Option B — Robot Java from scratch
 
-Créez une classe héritant de `PlayerView` :
+Créez une classe héritant de `PlayerView` issu de [carcassonne_connection_library](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/carcassonne_connection_library) :
 
 ```java
 public class MonRobot extends PlayerView<PlayerClient> {
@@ -330,7 +299,7 @@ public class MonRobot extends PlayerView<PlayerClient> {
 
 ### Utiliser `game_elements` pour modéliser le plateau
 
-La librairie `game_elements` vous donne accès à toutes les structures du jeu :
+La librairie [game-elements](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/game-elements) vous donne accès à toutes les structures du jeu :
 
 ```java
 // Construire une tuile depuis sa représentation textuelle
@@ -353,7 +322,7 @@ board.getOutsideFrontierTiles(); // positions disponibles
 
 ## Créer sa propre interface
 
-Héritez de `PlayerView` et surchargez les méthodes `updateOn...` pour réagir aux événements de jeu :
+Héritez de `PlayerView` issu de [carcassonne_connection_library](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/carcassonne_connection_library) et surchargez les méthodes `updateOn...` pour réagir aux événements de jeu :
 
 | Méthode | Déclenchée quand... |
 |---|---|
@@ -375,7 +344,7 @@ boolean isReferee = this.getRoleManager().isRole(sourceId, Role.REFEREE);
 
 ### Enregistrer et rejouer une partie
 
-> Voir [README — recorder_replayer](./recorder_replayer/README.md)
+> Voir README [recorder_replayer](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/recorder_replayer)
 
 ```bash
 # Enregistrer une partie
@@ -398,12 +367,13 @@ Ces outils sont utiles pour :
 
 | Ressource | Description |
 |---|---|
-| [README — carcassonne_connection_library](./carcassonne_connection_library/README.md) | Librairie de connexion WebSocket, rôles, envoi/réception de messages |
-| [README — game_elements](./game_elements/README.md) | Structures de données du jeu (tuiles, plateau, zones, meeples) |
+| [carcassonne_connection_library](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/carcassonne_connection_library) | Librairie de connexion WebSocket, rôles, envoi/réception de messages |
+| [game-elements](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/game-elements) | Structures de données du jeu (tuiles, plateau, zones, meeples) |
+| [programme_arbitre](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/programme_arbitre) |Programme arbitre orchestrant une partie de Carcassonne en réseau |
 | [messages_carcassonne.md](./messages_carcassonne.md) | Protocole complet de communication (format de tous les messages) |
-| [README — robot](./robot/README.md) | Programme robot Python, architecture MoveStrategy |
-| [README — SwingPlayerGUI](./SwingPlayerGUI/README.md) | Interface graphique pour joueurs humains |
-| [README — recorder_replayer](./recorder_replayer/README.md) | Outils d'enregistrement et de replay de parties |
+| [programme_robot](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/programme_robot) | Programme robot Python, architecture MoveStrategy |
+| [SwingPlayerGUI](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/swingplayergui) | Interface graphique pour joueurs humains |
+| [recorder_replayer](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/recorder_replayer) | Outils d'enregistrement et de replay de parties |
 
 ---
 
