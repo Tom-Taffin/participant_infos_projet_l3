@@ -265,8 +265,8 @@ Carcassonne est un jeu de placement de tuiles dans lequel les joueurs construise
 
 - Une tuile doit être placée adjacent à une tuile déjà posée.
 - Les bords en contact doivent être compatibles (même topologie).
-- Un meeple peut être placé sur une route, une ville ou une abbeye.
-- Un meeple ne peut être placé que sur une zone libre (non déjà occupée sur la structure complète).
+- Un meeple peut être placé sur une route, une ville ou une abbaye.
+- Un meeple ne peut être placé que sur une zone libre (non déjà occupée par un autre meeple sur la structure complète).
 - Les meeples ne peuvent pas être placés sur des zones de type `FIELD` (champ). Ce placement de meeple ainsi que les extentions du jeu pourront être ajouté dans l'avenir.
 
 ### Scoring
