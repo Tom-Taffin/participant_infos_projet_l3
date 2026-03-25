@@ -144,8 +144,8 @@ Vous repartez du programme robot existant et implémentez votre propre stratégi
 
 Trois méthodes sont à implémenter dans votre stratégie :
 - `should_place_meeple()` → renvoie `True` si un meeple doit être placé
-- `get_tile_placement()` → renvoie les coordonnées et l'orientation d'une tuile
-- `get_meeple_placement()` → renvoie les coordonnées et l'orientation de la tuile, ainsi que la position du meeple
+- `get_tile_placement()` → renvoie les coordonnées et l'orientation de la tuile à placer
+- `get_meeple_placement()` → renvoie les coordonnées et l'orientation de la tuile à placer, ainsi que la position du meeple dessus
 
 ### Mode 3 — Créer son propre programme robot (Java ou autre)
 
