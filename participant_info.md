@@ -98,16 +98,18 @@ Voici l'ordre dans lequel les programmes doivent être lancés :
 ```
 1. Lancer le réflecteur (WebSocket hub)
         ↓
-2. Connecter le programme arbitre au réflecteur
+2. (FACULTATIF) Lancer le recorder (enregistrer une partie) ou le replayer (rejouer une partie)
         ↓
-3. Connecter les joueurs (robots ou interfaces humaines)
+3. Connecter le programme arbitre au réflecteur
+        ↓
+4. Connecter les joueurs (robots ou interfaces humaines)
    → Chaque joueur envoie le message PLAYS pour indiquer sa présence
         ↓
-4. L'arbitre attribue les rôles (ELECTS) et démarre la partie (STARTS)
+5. L'arbitre attribue les rôles (ELECTS) et démarre la partie (STARTS)
         ↓
-5. L'arbitre distribue les meeples initiaux (COLLECTS) et propose la première tuile (OFFERS)
+6. L'arbitre distribue les meeples initiaux (COLLECTS) et propose la première tuile (OFFERS)
         ↓
-6. La partie se déroule tour par tour jusqu'au message ENDS
+7. La partie se déroule tour par tour jusqu'au message ENDS
 ```
 
 ### Séquence d'un tour
@@ -182,7 +184,7 @@ Un script est mis à votre disposition pour faciliter l'installation des différ
 
 Pour lancer le script :  
 Sur Windows : `./build.ps1`  
-Sur Linux : `./build.sh` (il faut d'abord donner les droits d'exécution au script par la commande `chmod -x ./build.sh`)
+Sur Linux : `./build.sh` (il faut d'abord donner les droits d'exécution au script par la commande `chmod +x ./build.sh`)
 
 Pour lancer l'exécutable que vous souhaitez, placez vous dans le dossier `build` et lancez la commande `java -jar` correspondante (référez vous aux Readme du dépot concerné pour obtenir la commande exacte)
 
