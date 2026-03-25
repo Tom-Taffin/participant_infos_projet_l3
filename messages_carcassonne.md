@@ -93,6 +93,8 @@ Le champ `orientation` est l'orientation de la tuile qui à été pioché, soit 
 
 Les champs `meeple_type` et `meeple_position` correspondent respectivement au type de meeple placé (`regular` pour les meeples du jeu de base) et à la position du meeple sur la tuile qui est la direction du bord où se situe la zone ainsi que son indice de gauche à droite. La direction est `T` pour Top, `R` pour Right, `B` pour Bottom et `L` pour Left. Par exemple `B0` pour la zone en bas la plus à droite. `B1` pour celle à gauche de `B0`. `L0` pour celle à gauche la plus en bas. `R0` pour celle à droite la plus en haut. `T0` pour celle en haut la plus à gauche. Donc pour mettre un meeple sur la route à droite de la tuile `c1-f2r1f3-f3r1f2-f2` c'est `R1`. Et pour mettre un meeple sur le champ en bas à gauche de `c1-f2r1f3-f3r1f2-f2` c'est `B2`.
 
+![meeple_position_example](./images/meeple_position_example.png)
+
 Un message `PLACES` envoyé par un identifiant de role `spectator` ou `utility` n'a aucun effet.
 
 ### BLAMES
