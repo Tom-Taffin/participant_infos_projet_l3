@@ -206,7 +206,8 @@ Voir la section [réflecteur](#réflecteur)
 - Soit un programme robot :  
     - voir [programme_robot](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/programme_robot)
 
-Une fois le bon nombre de joueurs connectés la partie se lancera.
+Une fois le bon nombre de joueurs connectés la partie se lancera.  
+Les programmes peuvent être lancés sur différentes machines.
 
 ---
 
