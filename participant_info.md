@@ -197,12 +197,12 @@ Voir la section [réflecteur](#réflecteur)
 
 2) Connecter un programme arbitre au réflecteur :  
 - Se placer dans `participant_info/build`  
-- `java -jar .\RefereeView.jar <ip> <port> <arbitreID> <nbPlayers>`
+- `java -jar ./RefereeView.jar <ip> <port> <arbitreID> <nbPlayers>`
 
 3) Connecter les joueurs :    
 - Soit une interface graphique :  
     - Se placer dans `participant_info/build`  
-    - `java -jar .\PlayerController.jar <ip> <port> <playerId>`  
+    - `java -jar ./PlayerController.jar <ip> <port> <playerId>`  
 - Soit un programme robot :  
     - voir [programme_robot](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/programme_robot)
 
