@@ -217,12 +217,12 @@ Les programmes peuvent être lancés sur différentes machines.
 
 ```bash
 # Installer la librairie de connexion
-git clone git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/carcassonne_connection_library.git
+git clone https://github.com/Tom-Taffin/carcassonne_connection_library_projet_l3.git
 cd carcassonne_connection_library
 mvn clean install
 
 # Installer la librairie de jeu
-git clone git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/game-elements.git
+git clone https://github.com/Tom-Taffin/game-elements_projet_l3.git
 cd game_elements
 mvn clean install
 ```
