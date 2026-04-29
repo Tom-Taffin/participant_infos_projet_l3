@@ -1,4 +1,4 @@
-# Guide du Participant — Tournoi Carcassonne
+# Guide du Participant - Tournoi Carcassonne - Projet l3
 
 Bienvenue dans le tournoi Carcassonne ! Ce document explique tout ce que vous devez savoir pour participer : architecture du projet, règles du tournoi, modes de participation, et instructions de lancement.
 
@@ -35,7 +35,7 @@ Chaque programme se voit attribuer un **rôle** (`referee`, `player`, `spectator
 
 ### 1. La librairie de connexion — `carcassonne_connection_library`
 
-> Voir README [carcassonne_connection_library](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/carcassonne_connection_library)
+> Voir README [carcassonne_connection_library](https://github.com/Tom-Taffin/carcassonne_connection_library_projet_l3)
 
 Librairie Java partagée par tous les programmes pour communiquer avec le réflecteur. Elle gère la connexion WebSocket, le formatage des messages et la validation des arguments. **Tous les programmes participants doivent l'utiliser** pour garantir la cohérence du protocole.
 
@@ -49,7 +49,7 @@ Elle expose trois niveaux de rôles sous forme d'une hiérarchie de classes :
 
 ### 2. La librairie de jeu — `game-elements`
 
-> Voir README [game-elements](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/game-elements)
+> Voir README [game-elements](https://github.com/Tom-Taffin/game-elements_projet_l3)
 
 Librairie Java contenant toutes les structures de données du jeu Carcassonne : tuiles, bords, zones, plateau, joueurs, meeples. Indispensable pour tout programme qui doit modéliser l'état du jeu (robot, interface graphique, arbitre).
 
@@ -57,25 +57,25 @@ Exemples d'objets disponibles : `Tile`, `Board`, `Coordinates`, `Player`, `Meepl
 
 ### 3. Le programme arbitre — `programme_arbitre`
 
-> Voir README [programme_arbitre](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/programme_arbitre)
+> Voir README [programme_arbitre](https://github.com/Tom-Taffin/programme_arbitre_projet_l3)
 
 Programme arbitre orchestrant une partie de Carcassonne en réseau. Il est responsable du déroulement de la partie, offre des tuiles aux joueurs et valide les coups ou blame les joueurs.
 
 ### 4. L'interface graphique — `SwingPlayerGUI`
 
-> Voir README [SwingPlayerGUI](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/swingplayergui)
+> Voir README [SwingPlayerGUI](https://github.com/Tom-Taffin/SwingPlayerGUI_projet_l3)
 
 Interface Java Swing permettant à un humain de jouer à Carcassonne. Elle se connecte au réflecteur, affiche l'état du plateau et permet au joueur humain de placer ses tuiles et meeples via une interface visuelle.
 
 ### 5. Le programme robot — `programme_robot`
 
-> Voir README [programme_robot](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/programme_robot)
+> Voir README [programme_robot](https://github.com/Tom-Taffin/programme_robot_projet_l3)
 
 Programme Python (utilisant JPype pour interagir avec les librairies Java) qui joue automatiquement à Carcassonne. Il reçoit les tuiles proposées par l'arbitre et décide de leur placement selon une stratégie configurable. La stratégie par défaut (`RandomMoveStrategy`) choisit un coup aléatoire parmi les coups valides.
 
 ### 6. Recorder & Replayer
 
-> Voir README [recorder_replayer](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/recorder_replayer)
+> Voir README [recorder_replayer](https://github.com/Tom-Taffin/recorder_replayer_projet_l3)
 
 Outils Node.js et Python permettant d'enregistrer tous les messages d'une partie dans un fichier, puis de les rejouer. Utiles pour analyser des parties, déboguer ou rejouer des scénarios de test.
 
@@ -188,7 +188,7 @@ Sur Linux : `./build.sh` (il faut d'abord donner les droits d'exécution au scri
 
 Pour lancer l'exécutable que vous souhaitez, placez vous dans le dossier `build` et lancez la commande `java -jar` correspondante (référez vous aux Readme du dépot concerné pour obtenir la commande exacte)
 
-Le programme robot n'est pas inclus dans le script. Référez vous à [programme_robot](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/programme_robot) pour installer et utiliser le programme robot.
+Le programme robot n'est pas inclus dans le script. Référez vous à [programme_robot](https://github.com/Tom-Taffin/programme_robot_projet_l3) pour installer et utiliser le programme robot.
 
 ### Lancer une partie
 
@@ -204,7 +204,7 @@ Voir la section [réflecteur](#réflecteur)
     - Se placer dans `participant_info/build`  
     - `java -jar ./PlayerController.jar <ip> <port> <playerId>`  
 - Soit un programme robot :  
-    - voir [programme_robot](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/programme_robot)
+    - voir [programme_robot](https://github.com/Tom-Taffin/programme_robot_projet_l3)
 
 Une fois le bon nombre de joueurs connectés la partie se lancera.  
 Les programmes peuvent être lancés sur différentes machines.
@@ -245,7 +245,7 @@ mvn clean install
 </dependency>
 ```
 
-Pour plus d'informations : voir les README de [carcassonne_connection_library](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/carcassonne_connection_library) et [game-elements](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/game-elements).
+Pour plus d'informations : voir les README de [carcassonne_connection_library](https://github.com/Tom-Taffin/carcassonne_connection_library_projet_l3) et [game-elements](https://github.com/Tom-Taffin/game-elements_projet_l3).
 
 ---
 
@@ -283,7 +283,7 @@ Carcassonne est un jeu de placement de tuiles dans lequel les joueurs construise
 
 Un joueur accumulant trop de blâmes (nombre défini par l'arbitre via `BLAMES amount`) est expulsé de la partie.
 
-Pour en savoir plus: voir README [programme_arbitre](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/programme_arbitre)
+Pour en savoir plus: voir README [programme_arbitre](https://github.com/Tom-Taffin/programme_arbitre_projet_l3)
 
 ### Fin de partie
 
@@ -293,7 +293,7 @@ L'arbitre envoie `ENDS` en indiquant l'identifiant du (ou des) joueur(s) gagnant
 
 ## Créer son propre robot
 
-> Voir README [programme_robot](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/programme_robot)
+> Voir README [programme_robot](https://github.com/Tom-Taffin/programme_robot_projet_l3)
 
 ### Option A — Nouvelle stratégie Python (recommandée)
 
@@ -325,7 +325,7 @@ self.move_strategy = MaStrategie()
 
 ### Option B — Robot Java from scratch
 
-Créez une classe héritant de `PlayerView` issu de [carcassonne_connection_library](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/carcassonne_connection_library) :
+Créez une classe héritant de `PlayerView` issu de [carcassonne_connection_library](https://github.com/Tom-Taffin/carcassonne_connection_library_projet_l3) :
 
 ```java
 public class MonRobot extends PlayerView<PlayerClient> {
@@ -351,7 +351,7 @@ public class MonRobot extends PlayerView<PlayerClient> {
 
 ### Utiliser `game_elements` pour modéliser le plateau
 
-La librairie [game-elements](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/game-elements) vous donne accès à toutes les structures du jeu :
+La librairie [game-elements](https://github.com/Tom-Taffin/game-elements_projet_l3) vous donne accès à toutes les structures du jeu :
 
 ```java
 // Construire une tuile depuis sa représentation textuelle
@@ -374,7 +374,7 @@ board.getOutsideFrontierTiles(); // positions disponibles
 
 ## Créer sa propre interface
 
-Héritez de `PlayerView` issu de [carcassonne_connection_library](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/carcassonne_connection_library) et surchargez les méthodes `updateOn...` pour réagir aux événements de jeu :
+Héritez de `PlayerView` issu de [carcassonne_connection_library](https://github.com/Tom-Taffin/carcassonne_connection_library_projet_l3) et surchargez les méthodes `updateOn...` pour réagir aux événements de jeu :
 
 | Méthode | Déclenchée quand... |
 |---|---|
@@ -396,7 +396,7 @@ boolean isReferee = this.getRoleManager().isRole(sourceId, Role.REFEREE);
 
 ### Enregistrer et rejouer une partie
 
-> Voir README [recorder_replayer](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/recorder_replayer)
+> Voir README [recorder_replayer](https://github.com/Tom-Taffin/recorder_replayer_projet_l3)
 
 ```bash
 # Enregistrer une partie
@@ -419,13 +419,13 @@ Ces outils sont utiles pour :
 
 | Ressource | Description |
 |---|---|
-| [carcassonne_connection_library](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/carcassonne_connection_library) | Librairie de connexion WebSocket, rôles, envoi/réception de messages |
-| [game-elements](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/game-elements) | Structures de données du jeu (tuiles, plateau, zones, meeples) |
-| [programme_arbitre](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/programme_arbitre) |Programme arbitre orchestrant une partie de Carcassonne en réseau |
+| [carcassonne_connection_library](https://github.com/Tom-Taffin/carcassonne_connection_library_projet_l3) | Librairie de connexion WebSocket, rôles, envoi/réception de messages |
+| [game-elements](https://github.com/Tom-Taffin/game-elements_projet_l3) | Structures de données du jeu (tuiles, plateau, zones, meeples) |
+| [programme_arbitre](https://github.com/Tom-Taffin/programme_arbitre_projet_l3) |Programme arbitre orchestrant une partie de Carcassonne en réseau |
 | [messages_carcassonne.md](./messages_carcassonne.md) | Protocole complet de communication (format de tous les messages) |
-| [programme_robot](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/programme_robot) | Programme robot Python, architecture MoveStrategy |
-| [SwingPlayerGUI](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/swingplayergui) | Interface graphique pour joueurs humains |
-| [recorder_replayer](https://gitlab-etu.fil.univ-lille.fr/l3s6-projet-g6-star/recorder_replayer) | Outils d'enregistrement et de replay de parties |
+| [programme_robot](https://github.com/Tom-Taffin/programme_robot_projet_l3) | Programme robot Python, architecture MoveStrategy |
+| [SwingPlayerGUI](https://github.com/Tom-Taffin/SwingPlayerGUI_projet_l3) | Interface graphique pour joueurs humains |
+| [recorder_replayer](https://github.com/Tom-Taffin/recorder_replayer_projet_l3) | Outils d'enregistrement et de replay de parties |
 
 ---
 
