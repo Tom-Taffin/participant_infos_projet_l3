@@ -175,7 +175,9 @@ Voici les liens pour télécharger le réflecteur selon l'architecture de votre 
 - [Mac-x64](https://gitlab.univ-lille.fr/fil-l3-projet/portail/-/raw/public/reflector-macos-x64.tgz)
 - [Mac-arm64](https://gitlab.univ-lille.fr/fil-l3-projet/portail/-/raw/public/reflector-macos-arm64.tgz)
 
-Pour utiliser le réflecteur, décompresser l’exécutable et appelez le ainsi : `./reflector --host <ip> --port <port>`  
+Pour utiliser le réflecteur, décompresser l’exécutable et appelez le ainsi :  
+`./reflector --host <ip> --port <port>`  
+`./reflector.exe --host <ip> --port <port>`  
 L'argument `--help` permet d'obtenir des informations sur les différents argument que peut prendre l'exécutable.
 
 ### Script de build
