@@ -1,22 +1,22 @@
 $projects = @(
     @{ 
         Name = "carcassonne_connection_library"
-        URL = "git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/carcassonne_connection_library.git"
+        URL = "git@github.com:Tom-Taffin/carcassonne_connection_library_projet_l3.git"
         JarNames = @("SpectatorMain.jar", "PlayerMain.jar", "AdminMain.jar") 
     },
     @{ 
         Name = "game-elements"
-        URL = "git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/game-elements.git"
+        URL = "git@github.com:Tom-Taffin/game-elements_projet_l3.git"
         JarNames = @() 
     },
     @{ 
         Name = "swingplayergui"
-        URL = "git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/swingplayergui.git"
+        URL = "git@github.com:Tom-Taffin/SwingPlayerGUI_projet_l3.git"
         JarNames = @("PlayerController.jar") 
     },
     @{ 
         Name = "programme_arbitre"
-        URL = "git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/programme_arbitre.git"
+        URL = "git@github.com:Tom-Taffin/programme_arbitre_projet_l3.git"
         JarNames = @("RefereeView.jar") 
     }
 )

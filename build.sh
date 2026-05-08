@@ -4,10 +4,10 @@ YELLOW='\033[1;33m'
 NC='\033[0m'
 
 projects=(
-    "carcassonne_connection_library|git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/carcassonne_connection_library.git|SpectatorMain.jar PlayerMain.jar AdminMain.jar"
-    "game-elements|git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/game-elements.git|none"
-    "swingplayergui|git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/swingplayergui.git|PlayerController.jar"
-    "programme_arbitre|git@gitlab-etu.fil.univ-lille.fr:l3s6-projet-g6-star/programme_arbitre.git|RefereeView.jar"
+    "carcassonne_connection_library|git@github.com:Tom-Taffin/carcassonne_connection_library_projet_l3.git|SpectatorMain.jar PlayerMain.jar AdminMain.jar"
+    "game-elements|git@github.com:Tom-Taffin/game-elements_projet_l3.git|none"
+    "swingplayergui|git@github.com:Tom-Taffin/SwingPlayerGUI_projet_l3.git|PlayerController.jar"
+    "programme_arbitre|git@github.com:Tom-Taffin/programme_arbitre_projet_l3.git|RefereeView.jar"
 )
 
 build="./build"
