@@ -175,6 +175,8 @@ Voici les liens pour télécharger le réflecteur selon l'architecture de votre 
 - [Mac-x64](https://gitlab.univ-lille.fr/fil-l3-projet/portail/-/raw/public/reflector-macos-x64.tgz)
 - [Mac-arm64](https://gitlab.univ-lille.fr/fil-l3-projet/portail/-/raw/public/reflector-macos-arm64.tgz)
 
+Le réflecteur est aussi récupérable dans la release backup reflecteur.
+
 Pour utiliser le réflecteur, décompresser l’exécutable et appelez le ainsi :  
 `./reflector --host <ip> --port <port>`  
 `./reflector.exe --host <ip> --port <port>`  
